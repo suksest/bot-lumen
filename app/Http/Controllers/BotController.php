@@ -66,15 +66,12 @@ class BotController extends Controller
             return response($res);
         }
 
-        $res = array('code' => 400, 'message' => 'Signature not set');
-        return response($res);
-
         $data = json_decode($body, true);
         foreach ($data['events'] as $event){
             if ($event['type'] == 'message'){
                 if($event['message']['type'] == 'text'){
                     $message = "Hai... ";
-                    $push = $bot->replyText($event['replyToken'], $message);
+                    $push = $this->bot->replyText($event['replyToken'], $message);
                     $res = array(
                         'code' => $push->getHTTPStatus(),
                         'body' => $push->getRawBody(),
