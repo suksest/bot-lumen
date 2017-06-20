@@ -54,6 +54,20 @@ class BotController extends Controller
         $signature = $request->server('HTTP_X_LINE_SIGNATURE');
         $body = $request->getContent();
 
+        $res = array('code' => 400, 'message' => 'Signature not set');
+        return response($res);
+
+        // is LINE_SIGNATURE exists in request header?
+        if (empty($signature)){
+            $res = array('code' => 400, 'message' => 'Signature not set');
+            return response($res);
+        }
+
+        // is this request comes from LINE?
+        if(env('PASS_SIGNATURE') == false && ! $this->bot->validateSignature($body, $signature)){
+            $res = array('code' => 400, 'message' => 'Invalid signature');
+            return response($res);
+        }
 
         $data = json_decode($body, true);
         foreach ($data['events'] as $event){
