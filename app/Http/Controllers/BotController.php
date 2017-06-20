@@ -51,9 +51,8 @@ class BotController extends Controller
 
     public function callback(Request $request)
     {
-        // get request body and line signature header
-        $body      = file_get_contents('php://input');
-        $signature = $_SERVER['HTTP_X_LINE_SIGNATURE'];
+        $signature = $request->server('HTTP_X_LINE_SIGNATURE');
+        $body = $request->getContent();
 
         // is LINE_SIGNATURE exists in request header?
         if (empty($signature)){
@@ -66,6 +65,9 @@ class BotController extends Controller
             $res = array('code' => 400, 'message' => 'Invalid signature');
             return response($res);
         }
+
+        $res = array('code' => 400, 'message' => 'Signature not set');
+        return response($res);
 
         $data = json_decode($body, true);
         foreach ($data['events'] as $event){
