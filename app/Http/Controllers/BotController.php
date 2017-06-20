@@ -51,11 +51,9 @@ class BotController extends Controller
 
     public function callback(Request $request)
     {
-        $signature = $request->server('HTTP_X_LINE_SIGNATURE');
-        $body = $request->getContent();
-
-        $res = array('code' => 400, 'message' => 'Signature not set');
-        return response($res);
+        // get request body and line signature header
+        $body      = file_get_contents('php://input');
+        $signature = $_SERVER['HTTP_X_LINE_SIGNATURE'];
 
         // is LINE_SIGNATURE exists in request header?
         if (empty($signature)){
