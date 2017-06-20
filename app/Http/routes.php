@@ -20,3 +20,5 @@ $app->get('/bot/hello', 'BotController@hello');
 $app->post('/bot/test', 'BotController@req');
 
 $app->post('/bot/callback', 'BotController@callback');
+
+$app->get('/test', 'BotController@coba');

@@ -88,4 +88,16 @@ class BotController extends Controller
 
     }
 
+    public function coba(){
+        $res = array(
+            'code' => 200,
+            'nim' => "151524030",
+            'name' => "Sukma Setyaji",
+            'address' => "Sumbersari, Bandung",
+            'dob' => "1996/12/29"
+        );
+
+        return response($res);
+    }
+
 }
