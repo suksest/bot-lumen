@@ -16,3 +16,7 @@ $app->get('/', function () use ($app) {
 });
 
 $app->get('/bot/hello', 'BotController@hello');
+
+$app->get('/bot/test', 'BotController@test');
+
+$app->post('/bot/callback', 'BotController@callback');
